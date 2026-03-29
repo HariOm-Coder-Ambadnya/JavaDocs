@@ -1,6 +1,6 @@
 export interface Course {
   id: string
-  iconName: 'Coffee' | 'Puzzle' | 'Leaf' | 'Rocket' | 'Database'
+  iconName: 'Coffee' | 'Puzzle' | 'Leaf' | 'Rocket' | 'Database' | 'Layout' | 'ShieldCheck'
   title: string
   color: string
   bg: string
@@ -46,5 +46,19 @@ export const COURSES: Course[] = [
     lessons: 9, duration: '9h 20m', level: 'Intermediate',
     desc: 'Work with entities, repositories, table relationships and JPQL queries.',
     tags: ['Entities', 'Repositories', 'JPQL'],
+  },
+  {
+    id: 'frontend', iconName: 'Layout', title: 'Frontend Integration',
+    color: '#06b6d4', bg: 'rgba(6,182,212,0.1)',
+    lessons: 6, duration: '7h 15m', level: 'Intermediate',
+    desc: 'Connect your Spring backend to modern React.js frontends using Axios and state management.',
+    tags: ['React', 'JavaScript', 'Fetch', 'State'],
+  },
+  {
+    id: 'devops', iconName: 'ShieldCheck', title: 'Security & Deployment',
+    color: '#ef4444', bg: 'rgba(239,68,68,0.1)',
+    lessons: 7, duration: '9h 40m', level: 'Advanced',
+    desc: 'Secure APIs with JWT, containerize with Docker, and deploy to the cloud via CI/CD.',
+    tags: ['JWT', 'Docker', 'AWS', 'CI/CD'],
   },
 ]

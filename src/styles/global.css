@@ -3,26 +3,26 @@
 @tailwind utilities;
 
 :root {
-  --bg:       #111113;
-  --bg2:      #1c1c1f;
-  --bg3:      #242428;
-  --card:     #1c1c1f;
-  --border:   rgba(255,255,255,0.07);
-  --border2:  rgba(255,255,255,0.12);
-  --text:     #f4f4f5;
-  --muted:    #71717a;
+  --bg:       #000000;
+  --bg2:      #050505;
+  --bg3:      #0a0a0a;
+  --card:     #080808;
+  --border:   rgba(255,255,255,0.03);
+  --border2:  rgba(255,255,255,0.06);
+  --text:     #ffffff;
+  --muted:    #525252;
   --muted2:   #a1a1aa;
   --accent:   #ffffff;
   --accent2:  #f4f4f5;
-  --blue:     #3b82f6;
-  --purple:   #a855f7;
-  --green:    #22c55e;
-  --radius:   14px;
-  --radius-sm:8px;
+  --blue:     #ffffff;
+  --purple:   #ffffff;
+  --green:    #ffffff;
+  --radius:   0px;
+  --radius-sm:0px;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+* { box-sizing: border-box; margin: 0; padding: 0; cursor: none !important; }
+html { scroll-behavior: smooth; font-size: 14px; background: #000; }
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -30,19 +30,37 @@ body {
   color: var(--text);
   -webkit-font-smoothing: antialiased;
   line-height: 1.6;
+  overflow-x: hidden;
 }
 
 /* Scrollbar */
-::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar { width: 3px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--bg3); border-radius: 3px; }
+::-webkit-scrollbar-thumb { background: #222; }
 
 /* Typography scale */
 .display {
-  font-family: 'Fraunces', Georgia, serif;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  line-height: 1.1;
+  font-family: 'Inter', sans-serif;
+  font-weight: 850;
+  letter-spacing: -0.05em;
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+.modern-display {
+  font-family: 'Inter', sans-serif;
+  font-weight: 850;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.tech-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
 }
 
 /* Card */

@@ -15,69 +15,86 @@ export default function Course() {
   const Icon = ICON_MAP[course.iconName]
 
   return (
-    <div style={{ background: '#111113', minHeight: '100vh', padding: '48px 24px 100px' }}>
+    <div style={{ background: '#000', minHeight: '100vh', padding: '60px 24px 120px' }}>
       <div style={{ maxWidth: 900, margin: '0 auto' }}>
 
-        <Link to="/docs" style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 13, color: '#52525b', textDecoration: 'none', marginBottom: 32 }}>
-          ← Back to Docs
+        <Link to="/docs" className="tech-label" style={{ fontSize: 10, color: '#525252', textDecoration: 'none', marginBottom: 40, display: 'inline-block' }}>
+          ← Back to system
         </Link>
 
         {/* Header */}
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 28, marginBottom: 52, alignItems: 'flex-start' }} className="gsap-fade">
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 40, marginBottom: 80, alignItems: 'flex-start' }} className="gsap-fade">
           <div style={{ flex: 1, minWidth: 260 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 18 }}>
-              <div style={{ width: 58, height: 58, borderRadius: 14, display: 'flex', alignItems: 'center', justifyContent: 'center', background: course.bg, border: `1px solid ${course.color}25` }}>
-                {Icon && <Icon size={28} color={course.color} />}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 20, marginBottom: 24 }}>
+              <div style={{ width: 64, height: 64, border: '1px solid rgba(255,255,255,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#080808' }}>
+                {Icon && <Icon size={28} color="#fff" />}
               </div>
               <div>
-                <span style={{ display: 'inline-block', fontSize: 11, fontWeight: 600, padding: '3px 9px', borderRadius: 5, color: course.color, background: `${course.color}12`, marginBottom: 5 }}>{course.level}</span>
-                <h1 className="display" style={{ fontSize: 'clamp(22px,3vw,34px)', color: '#f4f4f5' }}>{course.title}</h1>
+                <span className="tech-label" style={{ fontSize: 10, color: '#525252', marginBottom: 8, display: 'block' }}>{course.level} // Module</span>
+                <h1 className="modern-display" style={{ fontSize: 'clamp(28px,4vw,42px)', color: '#fff' }}>{course.title}</h1>
               </div>
             </div>
-            <p style={{ fontSize: 14, color: '#71717a', lineHeight: 1.7, marginBottom: 18 }}>{course.desc}</p>
-            <div style={{ display: 'flex', gap: 20, fontSize: 13, color: '#52525b' }}>
-              {[{ I: BookOpen, t: `${course.lessons} lessons` },{ I: Clock, t: course.duration },{ I: Play, t: 'Videos' }].map(({ I: Icon, t }) => (
-                <span key={t} style={{ display: 'flex', alignItems: 'center', gap: 5 }}><Icon size={13} color={course.color}/>{t}</span>
+            <p style={{ fontSize: 14, color: '#a1a1aa', lineHeight: 1.8, marginBottom: 24, maxWidth: 540 }}>{course.desc}</p>
+            <div style={{ display: 'flex', gap: 32 }}>
+              {[{ I: BookOpen, t: `${course.lessons} steps` },{ I: Clock, t: course.duration }].map(({ I: Icon, t }) => (
+                <span key={t} className="tech-label" style={{ fontSize: 10, display: 'flex', alignItems: 'center', gap: 8, color: '#525252' }}><Icon size={14}/>{t}</span>
               ))}
             </div>
           </div>
 
           {/* Start card */}
-          <div className="card" style={{ width: 250, padding: '22px 20px' }}>
-            <div className="display" style={{ fontSize: 22, color: '#f4f4f5', marginBottom: 3 }}>Free</div>
-            <div style={{ fontSize: 12, color: '#52525b', marginBottom: 18 }}>No sign-up needed</div>
-            <Link to={`/docs/${section.items[0].id}`} className="btn-primary" style={{ width: '100%', justifyContent: 'center', fontSize: 13, marginBottom: 18 }}>
-              Start Learning <ArrowRight size={13} />
+          <div style={{ 
+            width: 280, 
+            padding: '40px 32px', 
+            background: '#080808', 
+            border: '1px solid rgba(255,255,255,0.05)' 
+          }}>
+            <div className="tech-label" style={{ fontSize: 10, color: '#525252', marginBottom: 4 }}>Access Priority</div>
+            <div className="modern-display" style={{ fontSize: 24, color: '#fff', marginBottom: 24 }}>Standard</div>
+            
+            <Link to={`/docs/${section.items[0].id}`} className="btn-primary" style={{ 
+              width: '100%', 
+              justifyContent: 'center', 
+              fontSize: 11, 
+              padding: '16px 0',
+              textTransform: 'uppercase',
+              letterSpacing: '0.1em',
+              marginBottom: 32,
+              borderRadius: 0
+            }}>
+              Initialize <ArrowRight size={13} />
             </Link>
-            {['Structured lessons','Real code examples','Video lectures','Key notes'].map(item => (
-              <div key={item} style={{ display: 'flex', alignItems: 'center', gap: 7, fontSize: 12, color: '#71717a', marginBottom: 7 }}>
-                <CheckCircle size={12} color={course.color}/>{item}
+            
+            {['Engineered lessons','Production patterns','Visual streams','Logical kernels'].map(item => (
+              <div key={item} style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 10, color: '#525252', marginBottom: 10, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                <CheckCircle size={12} /> {item}
               </div>
             ))}
           </div>
         </div>
 
         {/* Lessons */}
-        <h2 style={{ fontSize: 18, fontWeight: 700, color: '#f4f4f5', marginBottom: 12, letterSpacing: '-0.01em' }}>Course Contents</h2>
-        <div className="gsap-stagger" style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        <h2 className="tech-label" style={{ fontSize: 10, color: '#525252', marginBottom: 24 }}>System Contents // Steps</h2>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
           {section.items.map((item, i) => {
             const lesson = LESSONS[item.id]
             return (
-              <Link key={item.id} to={`/docs/${item.id}`} className="card" style={{
-                display: 'flex', alignItems: 'center', gap: 14, padding: '14px 18px',
-                textDecoration: 'none', transition: 'border-color 0.15s, background 0.15s',
+              <Link key={item.id} to={`/docs/${item.id}`} style={{
+                display: 'flex', alignItems: 'center', gap: 20, padding: '20px 24px',
+                textDecoration: 'none', transition: 'all 0.2s',
+                background: '#080808', border: '1px solid rgba(255,255,255,0.03)'
               }}
-              onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = '#242428'; el.style.borderColor = 'rgba(255,255,255,0.12)' }}
-              onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = '#1c1c1f'; el.style.borderColor = 'rgba(255,255,255,0.07)' }}
+              onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = '#0d0d0d'; el.style.borderColor = 'rgba(255,255,255,0.1)' }}
+              onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = '#080808'; el.style.borderColor = 'rgba(255,255,255,0.03)' }}
               >
-                <div style={{ width: 30, height: 30, borderRadius: 7, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, color: '#fff', background: course.color, flexShrink: 0, fontFamily: 'monospace' }}>
+                <div className="tech-label" style={{ width: 24, height: 24, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, color: '#444', border: '1px solid rgba(255,255,255,0.05)', flexShrink: 0 }}>
                   {String(i+1).padStart(2,'0')}
                 </div>
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: 14, fontWeight: 600, color: '#f4f4f5' }}>{item.label}</div>
-                  {lesson && <div style={{ fontSize: 11, color: '#52525b', marginTop: 2 }}>Video · {lesson.notes.length} key notes</div>}
+                  <div style={{ fontSize: 14, fontWeight: 500, color: '#fff', letterSpacing: '0.02em' }}>{item.label}</div>
+                  {lesson && <div className="tech-label" style={{ fontSize: 9, color: '#525252', marginTop: 4 }}>Stream // {lesson.notes.length} Kernels</div>}
                 </div>
-                <ArrowRight size={13} color="#3f3f46" />
+                <ArrowRight size={13} color="#222" />
               </Link>
             )
           })}

@@ -1,4 +1,4 @@
-import { Coffee, Puzzle, Leaf, Rocket, Database, LucideIcon } from 'lucide-react'
+import { Coffee, Puzzle, Leaf, Rocket, Database, Layout, ShieldCheck, LucideIcon } from 'lucide-react'
 
 export const ICON_MAP: Record<string, LucideIcon> = {
   Coffee,
@@ -6,6 +6,8 @@ export const ICON_MAP: Record<string, LucideIcon> = {
   Leaf,
   Rocket,
   Database,
+  Layout,
+  ShieldCheck,
 }
 
 export function getIcon(name: string): LucideIcon | null {

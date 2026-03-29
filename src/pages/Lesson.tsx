@@ -81,17 +81,17 @@ export default function Lesson() {
         <div style={{ maxWidth: 820, margin: '0 auto', padding: '24px 20px 80px' }}>
 
           {/* Topbar */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 40, flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 48 }}>
             <button onClick={() => setSidebarOpen(true)} className="lg:hidden" style={{ 
-              fontSize: 10, fontWeight: 800, color: '#fff', background: '#0a0a0a', border: '1px solid rgba(255,255,255,0.1)', 
-              padding: '8px 14px', textTransform: 'uppercase', letterSpacing: '0.1em'
+              fontSize: 9, fontWeight: 900, color: '#000', background: '#fff', border: 'none', 
+              padding: '10px 16px', textTransform: 'uppercase', letterSpacing: '0.15em'
             }}>
-              <Menu size={12} style={{ verticalAlign: 'middle', marginRight: 6 }} /> Menu
+              MENU
             </button>
-            <nav className="tech-label" style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 9, color: '#444' }}>
-              <Link to="/docs" style={{ color: '#444', textDecoration: 'none' }}>SYSTEM</Link>
-              <ChevronRight size={10} />
-              <span style={{ color: '#fff' }}>{lesson.title}</span>
+            <nav className="tech-label" style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 8, color: '#333' }}>
+              <Link to="/docs" style={{ color: '#333', textDecoration: 'none' }}>SYSTEM</Link>
+              <span style={{ opacity: 0.5 }}>/</span>
+              <span style={{ color: '#666' }}>{lesson.title}</span>
             </nav>
           </div>
 

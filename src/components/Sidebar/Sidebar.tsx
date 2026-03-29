@@ -32,49 +32,46 @@ export default function Sidebar({ isOpen, onClose }: Props) {
       <aside
         className={`${isOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}
         style={{
-          position: 'sticky', top: 70,
-          height: 'calc(100vh - 70px)',
-          width: 260, minWidth: 260, flexShrink: 0,
-          background: '#050505',
-          borderRight: '1px solid rgba(255,255,255,0.04)',
+          position: 'fixed', top: 0, left: 0,
+          height: '100vh',
+          width: 280, flexShrink: 0,
+          background: '#000',
+          borderRight: '1px solid rgba(255,255,255,0.06)',
           overflowY: 'auto',
           transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
-          zIndex: 40,
+          zIndex: 500,
         }}
       >
         {/* Header */}
         <div style={{
-          padding: '24px 20px',
-          borderBottom: '1px solid rgba(255,255,255,0.03)',
+          padding: '32px 24px',
+          borderBottom: '1px solid rgba(255,255,255,0.05)',
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         }}>
-          <span className="tech-label" style={{ fontSize: 9, color: '#fff', opacity: 0.3 }}>
-            System // Kernel
-          </span>
+          <div>
+            <span className="tech-label" style={{ fontSize: 9, color: '#fff', opacity: 0.2, display: 'block' }}>SYSTEM // VERSION</span>
+            <span className="modern-display" style={{ fontSize: 13, color: '#fff' }}>Kernel.base</span>
+          </div>
           <button onClick={onClose} className="lg:hidden" style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer', opacity: 0.5 }}>
-            <X size={16} />
+            <X size={18} />
           </button>
         </div>
 
-        <nav style={{ padding: '12px' }}>
+        <nav style={{ padding: '20px 12px' }}>
           {SIDEBAR_SECTIONS.map(section => {
             const isExp = expanded[section.id]
             const hasActive = section.items.some(i => i.id === lessonId)
-            const Icon = ICON_MAP[section.iconName]
 
             return (
-              <div key={section.id} style={{ marginBottom: 4 }}>
+              <div key={section.id} style={{ marginBottom: 8 }}>
                 <button onClick={() => toggle(section.id)} style={{
                   width: '100%', display: 'flex', alignItems: 'center', gap: 12,
-                  padding: '12px 14px', textAlign: 'left',
+                  padding: '12px 16px', textAlign: 'left',
                   background: hasActive ? 'rgba(255,255,255,0.03)' : 'transparent',
                   border: 'none', cursor: 'pointer', transition: 'all 0.2s',
                 }}
-                onMouseEnter={e => { if (!hasActive) (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.02)' }}
-                onMouseLeave={e => { if (!hasActive) (e.currentTarget as HTMLElement).style.background = 'transparent' }}
                 >
-                  {Icon && <Icon size={14} color="#fff" style={{ opacity: hasActive ? 1 : 0.3 }} />}
-                  <span className="modern-display" style={{ flex: 1, fontSize: 13, color: hasActive ? '#fff' : '#525252' }}>
+                  <span className="modern-display" style={{ flex: 1, fontSize: 12, color: hasActive ? '#fff' : '#444', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                     {section.label}
                   </span>
                   {isExp
@@ -84,23 +81,21 @@ export default function Sidebar({ isOpen, onClose }: Props) {
 
                 {isExp && (
                   <div style={{
-                    marginLeft: 18, marginTop: 4, paddingLeft: 16,
-                    borderLeft: '1px solid rgba(255,255,255,0.04)',
+                    marginLeft: 16, marginTop: 4, paddingLeft: 16,
+                    borderLeft: '1px solid rgba(255,255,255,0.05)',
                   }}>
                     {section.items.map(item => {
                       const active = item.id === lessonId
                       return (
                         <Link key={item.id} to={`/docs/${item.id}`} onClick={() => { if (window.innerWidth < 1024) onClose() }} style={{
-                          display: 'block', padding: '10px 14px',
-                          textDecoration: 'none', marginBottom: 2,
+                          display: 'block', padding: '8px 16px',
+                          textDecoration: 'none', marginBottom: 4,
                           transition: 'all 0.2s',
                         }}
-                        onMouseEnter={e => { if (!active) { const el = e.currentTarget as HTMLElement; el.style.color = '#fff'; }}}
-                        onMouseLeave={e => { if (!active) { const el = e.currentTarget as HTMLElement; el.style.color = '#525252'; }}}
                         >
                           <span className="tech-label" style={{ 
-                            fontSize: 10, 
-                            color: active ? '#fff' : '#525252',
+                            fontSize: 9, 
+                            color: active ? '#fff' : '#333',
                             fontWeight: active ? 800 : 700 
                           }}>
                             {item.label}

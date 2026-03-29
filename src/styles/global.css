@@ -184,3 +184,26 @@ body {
 .gsap-slide-left { opacity: 0; transform: translateX(-40px); }
 .gsap-slide-right { opacity: 0; transform: translateX(40px); }
 .gsap-scale { opacity: 0; transform: scale(0.92); }
+
+/* Mobile Utilities */
+@media (max-width: 768px) {
+  .hidden-mobile { display: none !important; }
+  .flex-col-mobile { flex-direction: column !important; }
+  .text-center-mobile { text-align: center !important; }
+  .p-mobile-0 { padding: 0 !important; }
+  .m-mobile-0 { margin: 0 !important; }
+  .gap-mobile-4 { gap: 16px !important; }
+}
+
+/* Tailwind-ish Shorthands (for compatibility) */
+.hidden { display: none; }
+@media (min-width: 768px) {
+  .md\:flex { display: flex; }
+  .md\:grid { display: grid; }
+  .md\:hidden { display: none; }
+}
+@media (min-width: 1024px) {
+  .lg\:flex { display: flex; }
+  .lg\:grid { display: grid; }
+  .lg\:hidden { display: none; }
+}

@@ -32,31 +32,31 @@ export default function Navbar() {
   return (
     <header style={{
       position: 'sticky', top: 0, zIndex: 100,
-      background: scrolled ? 'rgba(0,0,0,0.95)' : 'transparent',
-      backdropFilter: scrolled ? 'blur(20px)' : 'none',
+      background: scrolled ? 'rgba(0,0,0,0.95)' : 'rgba(0,0,0,0.6)',
+      backdropFilter: 'blur(20px)',
       borderBottom: `1px solid ${scrolled ? 'rgba(255,255,255,0.06)' : 'transparent'}`,
       transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
     }}>
-      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px', height: 70, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 32 }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 20px', height: 70, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 20 }}>
 
         {/* Logo */}
-        <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 12, textDecoration: 'none' }}>
-          <div style={{ width: 28, height: 28, background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <div style={{ width: 14, height: 14, background: '#000' }} />
+        <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
+          <div style={{ width: 24, height: 24, background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ width: 12, height: 12, background: '#000' }} />
           </div>
-          <span className="modern-display" style={{ fontSize: 16, color: '#fff' }}>
+          <span className="modern-display" style={{ fontSize: 15, color: '#fff' }}>
             Java<span style={{ opacity: 0.5 }}>Docs</span>
           </span>
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex" style={{ alignItems: 'center', gap: 8 }}>
+        <nav className="hidden md:flex" style={{ alignItems: 'center', gap: 4 }}>
           {NAV.map(n => {
             const isExternal = n.to.startsWith('http');
             const active     = loc.pathname === n.to;
             const style: React.CSSProperties = {
-              padding: '6px 12px', fontSize: 10, fontWeight: 800,
-              textDecoration: 'none', textTransform: 'uppercase', letterSpacing: '0.15em',
+              padding: '6px 14px', fontSize: 10, fontWeight: 800,
+              textDecoration: 'none', textTransform: 'uppercase', letterSpacing: '0.12em',
               color: active ? '#fff' : '#525252',
               transition: 'all 0.2s',
             };
@@ -80,42 +80,42 @@ export default function Navbar() {
         </nav>
 
         {/* Right side */}
-        <div className="hidden md:flex" style={{ alignItems: 'center', gap: 16 }}>
-          <form onSubmit={submit} style={{ position: 'relative' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <form className="hidden sm:block" onSubmit={submit} style={{ position: 'relative' }}>
             <Search size={12} style={{ position: 'absolute', left: 0, top: '50%', transform: 'translateY(-50%)', color: '#525252', pointerEvents: 'none' }} />
-            <input value={q} onChange={e => setQ(e.target.value)} placeholder="SEARCH // SYSTEM"
+            <input value={q} onChange={e => setQ(e.target.value)} placeholder="SEARCH"
               style={{
-                paddingLeft: 24, paddingRight: 0, paddingTop: 10, paddingBottom: 10,
-                fontSize: 10, background: 'transparent', border: 'none', borderBottom: '1px solid rgba(255,255,255,0.1)',
-                color: '#fff', width: 160, outline: 'none', fontWeight: 700, letterSpacing: '0.1em',
+                paddingLeft: 20, paddingRight: 0, paddingTop: 10, paddingBottom: 10,
+                fontSize: 9, background: 'transparent', border: 'none', borderBottom: '1px solid rgba(255,255,255,0.08)',
+                color: '#fff', width: 120, outline: 'none', fontWeight: 700, letterSpacing: '0.1em',
                 transition: 'all 0.3s',
               }}
-              onFocus={e => { e.target.style.width = '200px'; e.target.style.borderBottomColor = 'rgba(255,255,255,0.4)' }}
-              onBlur={e => { e.target.style.width = '160px'; e.target.style.borderBottomColor = 'rgba(255,255,255,0.1)' }}
+              onFocus={e => { e.target.style.width = '160px'; e.target.style.borderBottomColor = 'rgba(255,255,255,0.4)' }}
+              onBlur={e => { e.target.style.width = '120px'; e.target.style.borderBottomColor = 'rgba(255,255,255,0.08)' }}
             />
           </form>
 
-          <Link to="/docs/java-intro" style={{
-            fontSize: 10, fontWeight: 800, color: '#000', background: '#fff',
-            textDecoration: 'none', padding: '10px 20px', textTransform: 'uppercase', letterSpacing: '0.1em'
+          <Link to="/docs/java-intro" className="hidden sm:block" style={{
+            fontSize: 9, fontWeight: 800, color: '#000', background: '#fff',
+            textDecoration: 'none', padding: '10px 18px', textTransform: 'uppercase', letterSpacing: '0.1em'
           }}>
             Initialize
           </Link>
-        </div>
 
-        {/* Mobile toggle */}
-        <button className="md:hidden" onClick={() => setOpen(!open)}
-          style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer' }}>
-          {open ? <X size={20} /> : <Menu size={20} />}
-        </button>
+          {/* Mobile toggle */}
+          <button className="md:hidden" onClick={() => setOpen(!open)}
+            style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer', padding: 8 }}>
+            {open ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile menu */}
       {open && (
-        <div style={{ background: '#000', borderTop: '1px solid rgba(255,255,255,0.06)', padding: '40px 24px', position: 'fixed', inset: '70px 0 0 0', zIndex: 90 }}>
+        <div style={{ background: '#000', borderTop: '1px solid rgba(255,255,255,0.06)', padding: '40px 24px', position: 'fixed', inset: '70px 0 0 0', zIndex: 200, overflowY: 'auto' }}>
           {NAV.map(n => {
             const isExternal = n.to.startsWith('http');
-            const style: React.CSSProperties = { display: 'block', padding: '20px 0', fontSize: 24, fontWeight: 700, color: '#fff', textDecoration: 'none', borderBottom: '1px solid rgba(255,255,255,0.05)', textTransform: 'uppercase', letterSpacing: '-0.02em' };
+            const style: React.CSSProperties = { display: 'block', padding: '20px 0', fontSize: 28, fontWeight: 700, color: '#fff', textDecoration: 'none', borderBottom: '1px solid rgba(255,255,255,0.03)', textTransform: 'uppercase', letterSpacing: '-0.02em' };
             
             if (isExternal) {
               return (
@@ -130,6 +130,14 @@ export default function Navbar() {
               </Link>
             );
           })}
+          <div style={{ marginTop: 40 }}>
+             <Link to="/docs/java-intro" onClick={() => setOpen(false)} style={{
+                display: 'block', textAlign: 'center', background: '#fff', color: '#000', padding: '20px', 
+                fontSize: 14, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', textDecoration: 'none'
+             }}>
+                Initialize System
+             </Link>
+          </div>
         </div>
       )}
     </header>

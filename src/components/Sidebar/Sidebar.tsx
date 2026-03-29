@@ -32,75 +32,79 @@ export default function Sidebar({ isOpen, onClose }: Props) {
       <aside
         className={`${isOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}
         style={{
-          position: 'sticky', top: 62,
-          height: 'calc(100vh - 62px)',
-          width: 252, minWidth: 252, flexShrink: 0,
-          background: '#111113',
-          borderRight: '1px solid rgba(255,255,255,0.06)',
+          position: 'sticky', top: 70,
+          height: 'calc(100vh - 70px)',
+          width: 260, minWidth: 260, flexShrink: 0,
+          background: '#050505',
+          borderRight: '1px solid rgba(255,255,255,0.04)',
           overflowY: 'auto',
-          transition: 'transform 0.3s',
+          transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+          zIndex: 40,
         }}
       >
         {/* Header */}
         <div style={{
-          padding: '16px 16px 12px',
-          borderBottom: '1px solid rgba(255,255,255,0.05)',
+          padding: '24px 20px',
+          borderBottom: '1px solid rgba(255,255,255,0.03)',
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         }}>
-          <span style={{ fontSize: 11, fontWeight: 600, color: '#52525b', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-            Documentation
+          <span className="tech-label" style={{ fontSize: 9, color: '#fff', opacity: 0.3 }}>
+            System // Kernel
           </span>
-          <button onClick={onClose} className="lg:hidden" style={{ background: 'none', border: 'none', color: '#52525b', cursor: 'pointer', padding: 2 }}>
-            <X size={15} />
+          <button onClick={onClose} className="lg:hidden" style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer', opacity: 0.5 }}>
+            <X size={16} />
           </button>
         </div>
 
-        <nav style={{ padding: '8px 8px 64px' }}>
+        <nav style={{ padding: '12px' }}>
           {SIDEBAR_SECTIONS.map(section => {
             const isExp = expanded[section.id]
             const hasActive = section.items.some(i => i.id === lessonId)
             const Icon = ICON_MAP[section.iconName]
 
             return (
-              <div key={section.id} style={{ marginBottom: 2 }}>
+              <div key={section.id} style={{ marginBottom: 4 }}>
                 <button onClick={() => toggle(section.id)} style={{
-                  width: '100%', display: 'flex', alignItems: 'center', gap: 8,
-                  padding: '8px 10px', borderRadius: 7, textAlign: 'left',
-                  background: hasActive ? 'rgba(255,255,255,0.05)' : 'transparent',
-                  border: 'none', cursor: 'pointer', transition: 'background 0.15s',
+                  width: '100%', display: 'flex', alignItems: 'center', gap: 12,
+                  padding: '12px 14px', textAlign: 'left',
+                  background: hasActive ? 'rgba(255,255,255,0.03)' : 'transparent',
+                  border: 'none', cursor: 'pointer', transition: 'all 0.2s',
                 }}
-                onMouseEnter={e => { if (!hasActive) (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.03)' }}
+                onMouseEnter={e => { if (!hasActive) (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.02)' }}
                 onMouseLeave={e => { if (!hasActive) (e.currentTarget as HTMLElement).style.background = 'transparent' }}
                 >
-                  {Icon && <Icon size={14} color={section.color} />}
-                  <span style={{ flex: 1, fontSize: 13, fontWeight: 600, color: hasActive ? '#f4f4f5' : '#71717a', textAlign: 'left' }}>
+                  {Icon && <Icon size={14} color="#fff" style={{ opacity: hasActive ? 1 : 0.3 }} />}
+                  <span className="modern-display" style={{ flex: 1, fontSize: 13, color: hasActive ? '#fff' : '#525252' }}>
                     {section.label}
                   </span>
                   {isExp
-                    ? <ChevronDown size={12} color="#52525b" />
-                    : <ChevronRight size={12} color="#52525b" />}
+                    ? <ChevronDown size={14} color="#222" />
+                    : <ChevronRight size={14} color="#222" />}
                 </button>
 
                 {isExp && (
                   <div style={{
-                    marginLeft: 10, marginTop: 2, paddingLeft: 14,
-                    borderLeft: `1px solid ${section.color}30`,
+                    marginLeft: 18, marginTop: 4, paddingLeft: 16,
+                    borderLeft: '1px solid rgba(255,255,255,0.04)',
                   }}>
                     {section.items.map(item => {
                       const active = item.id === lessonId
                       return (
-                        <Link key={item.id} to={`/docs/${item.id}`} onClick={onClose} style={{
-                          display: 'block', padding: '6px 10px', borderRadius: 6,
-                          fontSize: 13, textDecoration: 'none', marginBottom: 1,
-                          fontWeight: active ? 600 : 400,
-                          color: active ? '#f4f4f5' : '#71717a',
-                          background: active ? `${section.color}15` : 'transparent',
-                          transition: 'all 0.15s',
+                        <Link key={item.id} to={`/docs/${item.id}`} onClick={() => { if (window.innerWidth < 1024) onClose() }} style={{
+                          display: 'block', padding: '10px 14px',
+                          textDecoration: 'none', marginBottom: 2,
+                          transition: 'all 0.2s',
                         }}
-                        onMouseEnter={e => { if (!active) { const el = e.currentTarget as HTMLElement; el.style.color = '#a1a1aa'; el.style.background = 'rgba(255,255,255,0.04)' }}}
-                        onMouseLeave={e => { if (!active) { const el = e.currentTarget as HTMLElement; el.style.color = '#71717a'; el.style.background = 'transparent' }}}
+                        onMouseEnter={e => { if (!active) { const el = e.currentTarget as HTMLElement; el.style.color = '#fff'; }}}
+                        onMouseLeave={e => { if (!active) { const el = e.currentTarget as HTMLElement; el.style.color = '#525252'; }}}
                         >
-                          {item.label}
+                          <span className="tech-label" style={{ 
+                            fontSize: 10, 
+                            color: active ? '#fff' : '#525252',
+                            fontWeight: active ? 800 : 700 
+                          }}>
+                            {item.label}
+                          </span>
                         </Link>
                       )
                     })}

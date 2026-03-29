@@ -74,107 +74,113 @@ export default function Lesson() {
   const Icon = section ? ICON_MAP[section.iconName] : null
 
   return (
-    <div style={{ background: '#111113', display: 'flex', minHeight: 'calc(100vh - 62px)' }}>
+    <div style={{ background: '#000', display: 'flex', minHeight: 'calc(100vh - 70px)' }}>
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
       <div style={{ flex: 1, minWidth: 0 }}>
-        <div style={{ maxWidth: 820, margin: '0 auto', padding: '40px 28px 80px' }}>
+        <div style={{ maxWidth: 820, margin: '0 auto', padding: '24px 20px 80px' }}>
 
           {/* Topbar */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 32, flexWrap: 'wrap' }}>
-            <button onClick={() => setSidebarOpen(true)} className="lg:hidden btn-ghost" style={{ fontSize: 12, padding: '6px 12px' }}>
-              <Menu size={13}/> Menu
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 40, flexWrap: 'wrap' }}>
+            <button onClick={() => setSidebarOpen(true)} className="lg:hidden" style={{ 
+              fontSize: 10, fontWeight: 800, color: '#fff', background: '#0a0a0a', border: '1px solid rgba(255,255,255,0.1)', 
+              padding: '8px 14px', textTransform: 'uppercase', letterSpacing: '0.1em'
+            }}>
+              <Menu size={12} style={{ verticalAlign: 'middle', marginRight: 6 }} /> Menu
             </button>
-            <nav style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: '#52525b', flexWrap: 'wrap' }}>
-              <Link to="/" style={{ color: '#52525b', textDecoration: 'none' }}>Home</Link>
-              <ChevronRight size={12} />
-              <Link to="/docs" style={{ color: '#52525b', textDecoration: 'none' }}>Docs</Link>
-              {course && <><ChevronRight size={12} /><Link to={`/course/${course.id}`} style={{ color: '#52525b', textDecoration: 'none' }}>{course.title}</Link></>}
-              <ChevronRight size={12} />
-              <span style={{ color: '#a1a1aa' }}>{lesson.title}</span>
+            <nav className="tech-label" style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 9, color: '#444' }}>
+              <Link to="/docs" style={{ color: '#444', textDecoration: 'none' }}>SYSTEM</Link>
+              <ChevronRight size={10} />
+              <span style={{ color: '#fff' }}>{lesson.title}</span>
             </nav>
           </div>
 
-          {/* Course badge */}
+          {/* Module identifier */}
           {section && (
-            <div style={{ marginBottom: 12 }}>
-              <span style={{
-                display: 'inline-flex', alignItems: 'center', gap: 6,
-                fontSize: 11, fontWeight: 600, padding: '3px 10px', borderRadius: 5,
-                color: section.color, background: `${section.color}12`,
-                border: `1px solid ${section.color}25`,
+            <div style={{ marginBottom: 16 }}>
+              <span className="tech-label" style={{
+                display: 'inline-flex', alignItems: 'center', gap: 8,
+                fontSize: 10, color: '#fff', opacity: 0.4
               }}>
-                {Icon && <Icon size={13} color={section.color} />} {course?.title}
+                {Icon && <Icon size={14} />} {course?.title} // MODULE
               </span>
             </div>
           )}
 
-          <h1 className="display" style={{ fontSize: 'clamp(26px,4vw,42px)', color: '#f4f4f5', marginBottom: 32 }}>
+          <h1 className="modern-display" style={{ fontSize: 'clamp(24px,6vw,42px)', color: '#fff', marginBottom: 40, lineHeight: 1.1 }}>
             {lesson.title}
           </h1>
 
-          <div className="prose-docs">{parseContent(lesson.content)}</div>
+          <div className="prose-docs" style={{ fontSize: '15px', color: '#a1a1aa', lineHeight: 1.8 }}>
+            {parseContent(lesson.content)}
+          </div>
+          
           <CodeBlock code={lesson.code} language={lesson.language} />
-          <VideoPlayer videoId={lesson.videoId} title={`${lesson.title} — Video Lecture`} />
+          <VideoPlayer videoId={lesson.videoId} title={`${lesson.title} — Technical Stream`} />
 
-          {/* Key notes */}
-          <div style={{ background: 'rgba(245,158,11,0.06)', border: '1px solid rgba(245,158,11,0.2)', borderRadius: 10, padding: '22px 24px', margin: '28px 0' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
-              <div style={{ width: 28, height: 28, background: '#f59e0b', borderRadius: 7, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <Lightbulb size={14} color="#fff" />
+          {/* Key findings */}
+          <div style={{ background: '#050505', border: '1px solid rgba(255,255,255,0.05)', padding: '40px 32px', margin: '48px 0' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 32 }}>
+              <div style={{ width: 32, height: 32, background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <Lightbulb size={16} color="#000" />
               </div>
-              <h3 style={{ fontSize: 14, fontWeight: 700, color: '#f4f4f5', margin: 0 }}>Key Takeaways</h3>
+              <h3 className="modern-display" style={{ fontSize: 16, color: '#fff', margin: 0 }}>Core Findings</h3>
             </div>
-            <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: 9 }}>
+            <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: 16 }}>
               {lesson.notes.map((note, i) => (
-                <li key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 10, fontSize: 13, color: '#71717a', lineHeight: 1.65 }}>
-                  <span style={{ width: 19, height: 19, background: '#f59e0b', color: '#fff', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 10, fontWeight: 700, flexShrink: 0, marginTop: 1 }}>{i+1}</span>
+                <li key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 16, fontSize: 12, color: '#71717a', lineHeight: 1.8 }}>
+                  <span className="tech-label" style={{ fontSize: 9, color: '#fff', opacity: 0.3, marginTop: 4 }}>[{String(i+1).padStart(2,'0')}]</span>
                   {note}
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Prev / Next */}
-          <div style={{ display: 'flex', gap: 10, marginTop: 48, paddingTop: 24, borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+          {/* Sequential Control */}
+          <div style={{ 
+            display: 'flex', 
+            flexDirection: window.innerWidth < 768 ? 'column' : 'row',
+            gap: 1, 
+            marginTop: 80, 
+            paddingTop: 40, 
+            borderTop: '1px solid rgba(255,255,255,0.05)' 
+          }}>
             {lesson.prev ? (
-              <Link to={`/docs/${lesson.prev}`} className="card" style={{
-                flex: 1, display: 'flex', alignItems: 'center', gap: 12,
-                padding: '14px 18px', textDecoration: 'none',
-                transition: 'border-color 0.15s',
+              <Link to={`/docs/${lesson.prev}`} style={{
+                flex: 1, display: 'flex', alignItems: 'center', gap: 16,
+                padding: '24px', background: '#050505', border: '1px solid rgba(255,255,255,0.03)',
+                textDecoration: 'none', transition: 'all 0.2s',
               }}
-              onMouseEnter={e => (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.14)'}
-              onMouseLeave={e => (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.07)'}
+              onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = 'rgba(255,255,255,0.1)'; el.style.background = '#0a0a0a' }}
+              onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = 'rgba(255,255,255,0.03)'; el.style.background = '#050505' }}
               >
-                <ChevronLeft size={16} color="#52525b" />
+                <ChevronLeft size={16} color="#525252" />
                 <div>
-                  <div style={{ fontSize: 10, color: '#52525b', marginBottom: 3, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Previous</div>
-                  <div style={{ fontSize: 13, fontWeight: 600, color: '#f4f4f5' }}>{LESSONS[lesson.prev]?.title}</div>
+                  <div className="tech-label" style={{ fontSize: 9, color: '#525252', marginBottom: 4 }}>Previous // Step</div>
+                  <div className="modern-display" style={{ fontSize: 13, color: '#fff' }}>{LESSONS[lesson.prev]?.title}</div>
                 </div>
               </Link>
             ) : <div style={{ flex: 1 }} />}
 
             {lesson.next ? (
-              <Link to={`/docs/${lesson.next}`} className="card" style={{
-                flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 12,
-                padding: '14px 18px', textDecoration: 'none', textAlign: 'right',
-                transition: 'border-color 0.15s',
+              <Link to={`/docs/${lesson.next}`} style={{
+                flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 16,
+                padding: '24px', background: '#050505', border: '1px solid rgba(255,255,255,0.03)',
+                textDecoration: 'none', textAlign: 'right', transition: 'all 0.2s',
               }}
-              onMouseEnter={e => (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.14)'}
-              onMouseLeave={e => (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.07)'}
+              onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = 'rgba(255,255,255,0.1)'; el.style.background = '#0a0a0a' }}
+              onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = 'rgba(255,255,255,0.03)'; el.style.background = '#050505' }}
               >
                 <div>
-                  <div style={{ fontSize: 10, color: '#52525b', marginBottom: 3, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Next</div>
-                  <div style={{ fontSize: 13, fontWeight: 600, color: '#f4f4f5' }}>{LESSONS[lesson.next]?.title}</div>
+                  <div className="tech-label" style={{ fontSize: 9, color: '#525252', marginBottom: 4 }}>Next // Step</div>
+                  <div className="modern-display" style={{ fontSize: 13, color: '#fff' }}>{LESSONS[lesson.next]?.title}</div>
                 </div>
-                <ChevronRight size={16} color="#52525b" />
+                <ChevronRight size={16} color="#525252" />
               </Link>
             ) : (
-              <div className="card" style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'flex-end', padding: '14px 18px', background: 'rgba(34,197,94,0.06)', borderColor: 'rgba(34,197,94,0.2)' }}>
-                <div style={{ textAlign: 'right' }}>
-                  <div style={{ fontSize: 11, color: '#22c55e' }}>🎉 Section Complete!</div>
-                  <div style={{ fontSize: 13, fontWeight: 600, color: '#f4f4f5' }}>Congratulations</div>
-                </div>
+              <div style={{ flex: 1, padding: '24px', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', textAlign: 'right' }}>
+                <div className="tech-label" style={{ fontSize: 9, color: '#fff', marginBottom: 4, opacity: 0.5 }}>Module Complete</div>
+                <div className="modern-display" style={{ fontSize: 13, color: '#fff' }}>Standard Achieved</div>
               </div>
             )}
           </div>

@@ -106,24 +106,26 @@ export default function Hero() {
           Built for scale. Optimized for clarity.
         </p>
 
-        {/* Minimal Actions */}
-        <div style={{ display: 'flex', justifyContent: 'center', gap: 32 }}>
+      {/* Minimal Actions */}
+        <div style={{ display: 'flex', justifyContent: 'center', gap: 16, flexWrap: 'wrap' }}>
           <Link to="/docs" className="t-btn btn-primary" style={{ 
             background: '#fff', 
             color: '#000', 
             borderRadius: 0, 
-            padding: '16px 40px',
+            padding: '16px 32px',
             textTransform: 'uppercase',
-            fontSize: 12,
+            fontSize: 11,
+            fontWeight: 800,
             letterSpacing: '0.1em'
           }}>
             Explore Docs
           </Link>
           <Link to="/roadmap" className="t-btn btn-ghost" style={{ 
             borderRadius: 0, 
-            padding: '16px 40px',
+            padding: '16px 32px',
             textTransform: 'uppercase',
-            fontSize: 12,
+            fontSize: 11,
+            fontWeight: 800,
             letterSpacing: '0.1em',
             border: '1px solid rgba(255,255,255,0.1)'
           }}>
@@ -132,30 +134,30 @@ export default function Hero() {
         </div>
 
         {/* Feature Icons Row - Real Icons, Monochromatic */}
-        <div style={{ marginTop: 100, display: 'flex', justifyContent: 'center', gap: 60, opacity: 0.4 }}>
+        <div className="gap-mobile-4" style={{ marginTop: 80, display: 'flex', justifyContent: 'center', gap: 60, opacity: 0.3 }}>
           <div className="t-label" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
-            <Terminal size={18} />
-            <span style={{ fontSize: 9, letterSpacing: '0.2em' }}>Terminal</span>
+            <Terminal size={16} />
+            <span style={{ fontSize: 8, letterSpacing: '0.2em' }}>TERMINAL</span>
           </div>
           <div className="t-label" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
-            <Cpu size={18} />
-            <span style={{ fontSize: 9, letterSpacing: '0.2em' }}>Runtime</span>
+            <Cpu size={16} />
+            <span style={{ fontSize: 8, letterSpacing: '0.2em' }}>RUNTIME</span>
           </div>
-          <div className="t-label" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
-            <Layers size={18} />
-            <span style={{ fontSize: 9, letterSpacing: '0.2em' }}>Modules</span>
+          <div className="t-label hidden-mobile" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
+            <Layers size={16} />
+            <span style={{ fontSize: 8, letterSpacing: '0.2em' }}>MODULES</span>
           </div>
-          <div className="t-label" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
-            <Shield size={18} />
-            <span style={{ fontSize: 9, letterSpacing: '0.2em' }}>Secure</span>
+          <div className="t-label hidden-mobile" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
+            <Shield size={16} />
+            <span style={{ fontSize: 8, letterSpacing: '0.2em' }}>SECURE</span>
           </div>
         </div>
       </div>
 
       {/* Decorative corners like in first image */}
-      <div style={{ position: 'absolute', top: 40, left: 40 }} className="tech-label t-label">Cyber Resilient</div>
-      <div style={{ position: 'absolute', bottom: 40, left: 40 }} className="tech-label t-label">On Orbit // 01</div>
-      <div style={{ position: 'absolute', bottom: 40, right: 40 }} className="tech-label t-label">A.I. Powered</div>
+      <div style={{ position: 'absolute', top: 40, left: 40 }} className="tech-label t-label hidden-mobile">Cyber Resilient</div>
+      <div style={{ position: 'absolute', bottom: 40, left: 40 }} className="tech-label t-label hidden-mobile">On Orbit // 01</div>
+      <div style={{ position: 'absolute', bottom: 40, right: 40 }} className="tech-label t-label hidden-mobile">A.I. Powered</div>
 
     </section>
   )

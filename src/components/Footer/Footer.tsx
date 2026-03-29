@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Github, Twitter, Youtube } from 'lucide-react'
+import { Github, Twitter, Linkedin } from 'lucide-react'
 
 const LINKS = {
   Learn: [
@@ -9,50 +9,58 @@ const LINKS = {
     { label: 'Spring Boot',      to: '/docs/sb-setup' },
     { label: 'JPA / Hibernate',  to: '/docs/jpa-entities' },
   ],
-  Product: [
+  System: [
     { label: 'Documentation', to: '/docs' },
-    { label: 'All Courses',   to: '/course/java' },
+    { label: 'All Modules',   to: '/docs' },
+    { label: 'Roadmap',       to: '/roadmap' },
     { label: 'Search',        to: '/search' },
   ],
-  Company: [
-    { label: 'About',     to: '/' },
+  Network: [
     { label: 'Community', to: 'https://chat.whatsapp.com/BpNJmQCNXb3DXRNDUfBCxV' },
-    { label: 'Blog',      to: '/' },
-    { label: 'Changelog', to: '/' },
+    { label: 'GitHub',    to: 'https://github.com/HariOm-Coder-Ambadnya' },
+    { label: 'LinkedIn',  to: 'https://www.linkedin.com/in/rishikesh-pawar-sde' },
   ],
 }
 
+const SOCIALS = [
+  { icon: Github,   href: 'https://github.com/HariOm-Coder-Ambadnya' },
+  { icon: Twitter,  href: '#' },
+  { icon: Linkedin, href: 'https://www.linkedin.com/in/rishikesh-pawar-sde' },
+]
+
 export default function Footer() {
   return (
-    <footer style={{ background: '#0d0d0f', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
-      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '60px 24px 32px' }}>
+    <footer style={{ background: '#000', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '100px 24px 60px' }}>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 40, marginBottom: 48 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 60, marginBottom: 80 }}>
 
-          {/* Brand - with Logo */}
+          {/* Brand */}
           <div style={{ gridColumn: 'span 1' }}>
-            <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none', marginBottom: 14 }}>
-              <img src="/logo.png" alt="JavaDocs" style={{ width: 36, height: 36, borderRadius: 8, objectFit: 'cover' }} />
-              <span style={{ fontWeight: 800, fontSize: 18, color: '#f4f4f5', letterSpacing: '-0.02em' }}>
-                Java<span style={{ color: '#ffffff' }}>Docs</span>
+            <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 12, textDecoration: 'none', marginBottom: 24 }}>
+              <div style={{ width: 24, height: 24, background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ width: 12, height: 12, background: '#000' }} />
+              </div>
+              <span className="modern-display" style={{ fontSize: 16, color: '#fff' }}>
+                Java<span style={{ opacity: 0.5 }}>Docs</span>
               </span>
             </Link>
-            <p style={{ fontSize: 13, color: '#52525b', lineHeight: 1.7, marginBottom: 20 }}>
-              Free, structured documentation for Java and Spring developers.
+            <p style={{ fontSize: 13, color: '#525252', lineHeight: 1.8, marginBottom: 32, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+              High-performance documentation <br /> for the modern Java stack.
             </p>
-            <div style={{ display: 'flex', gap: 8 }}>
-              {[Github, Twitter, Youtube].map((Icon, i) => (
-                <a key={i} href="#" style={{
-                  width: 32, height: 32, borderRadius: 7,
-                  background: '#1c1c1f', border: '1px solid rgba(255,255,255,0.07)',
+            <div style={{ display: 'flex', gap: 12 }}>
+              {SOCIALS.map((s, i) => (
+                <a key={i} href={s.href} target="_blank" rel="noopener noreferrer" style={{
+                  width: 36, height: 36,
+                  background: '#080808', border: '1px solid rgba(255,255,255,0.04)',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  color: '#52525b', textDecoration: 'none',
-                  transition: 'border-color 0.2s, color 0.2s',
+                  color: '#525252', textDecoration: 'none',
+                  transition: 'all 0.2s',
                 }}
-                onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = 'rgba(255,255,255,0.18)'; el.style.color = '#a1a1aa' }}
-                onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = 'rgba(255,255,255,0.07)'; el.style.color = '#52525b' }}
+                onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = 'rgba(255,255,255,0.1)'; el.style.color = '#fff' }}
+                onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = 'rgba(255,255,255,0.04)'; el.style.color = '#525252' }}
                 >
-                  <Icon size={14} />
+                  <s.icon size={16} />
                 </a>
               ))}
             </div>
@@ -61,20 +69,20 @@ export default function Footer() {
           {/* Link columns */}
           {Object.entries(LINKS).map(([heading, items]) => (
             <div key={heading}>
-              <h4 style={{ fontSize: 12, fontWeight: 600, color: '#a1a1aa', letterSpacing: '0.04em', marginBottom: 16 }}>
-                {heading}
+              <h4 className="tech-label" style={{ fontSize: 10, color: '#fff', marginBottom: 24, opacity: 0.3 }}>
+                // {heading}
               </h4>
-              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 10 }}>
+              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 14 }}>
                 {items.map(item => {
                   const isExternal = item.to.startsWith('http');
-                  const style: React.CSSProperties = { fontSize: 13, color: '#52525b', textDecoration: 'none', transition: 'color 0.15s' };
+                  const style: React.CSSProperties = { fontSize: 11, color: '#525252', textDecoration: 'none', transition: 'all 0.2s', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 700 };
                   
                   if (isExternal) {
                     return (
                       <li key={item.label}>
                         <a href={item.to} target="_blank" rel="noopener noreferrer" style={style}
-                          onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = '#a1a1aa'}
-                          onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = '#52525b'}
+                          onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = '#fff'}
+                          onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = '#525252'}
                         >{item.label}</a>
                       </li>
                     );
@@ -83,8 +91,8 @@ export default function Footer() {
                   return (
                     <li key={item.label}>
                       <Link to={item.to} style={style}
-                        onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = '#a1a1aa'}
-                        onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = '#52525b'}
+                        onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = '#fff'}
+                        onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = '#525252'}
                       >{item.label}</Link>
                     </li>
                   );
@@ -93,27 +101,17 @@ export default function Footer() {
             </div>
           ))}
 
-          {/* Newsletter */}
+          {/* Infrastructure */}
           <div>
-            <h4 style={{ fontSize: 12, fontWeight: 600, color: '#a1a1aa', letterSpacing: '0.04em', marginBottom: 16 }}>
-              Newsletter
+            <h4 className="tech-label" style={{ fontSize: 10, color: '#fff', marginBottom: 24, opacity: 0.3 }}>
+              // Infrastructure
             </h4>
-            <p style={{ fontSize: 13, color: '#52525b', lineHeight: 1.6, marginBottom: 14 }}>
-              Get notified when new lessons drop.
-            </p>
-            <div style={{ display: 'flex', gap: 8 }}>
-              <input type="email" placeholder="you@email.com" style={{
-                flex: 1, padding: '8px 12px', fontSize: 13,
-                background: '#1c1c1f', border: '1px solid rgba(255,255,255,0.08)',
-                borderRadius: 7, color: '#a1a1aa', outline: 'none',
-                transition: 'border-color 0.2s',
-              }}
-              onFocus={e => (e.target as HTMLElement).style.borderColor = 'rgba(255,255,255,0.4)'}
-              onBlur={e => (e.target as HTMLElement).style.borderColor = 'rgba(255,255,255,0.08)'}
-              />
-              <button className="btn-primary" style={{ padding: '8px 14px', fontSize: 13, flexShrink: 0 }}>
-                →
-              </button>
+            <div style={{ padding: '24px', background: '#080808', border: '1px solid rgba(255,255,255,0.04)' }}>
+              <div style={{ fontSize: 10, color: '#525252', marginBottom: 12, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em' }}>System Status</div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <div style={{ width: 6, height: 6, background: '#fff', borderRadius: '50%', boxShadow: '0 0 10px #fff' }} />
+                <span className="tech-label" style={{ fontSize: 9 }}>Operational // v4.2.0</span>
+              </div>
             </div>
           </div>
         </div>
@@ -121,15 +119,17 @@ export default function Footer() {
         {/* Bottom bar */}
         <div style={{
           borderTop: '1px solid rgba(255,255,255,0.05)',
-          paddingTop: 24,
-          display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12,
+          paddingTop: 40,
+          display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 24,
         }}>
-          <p style={{ fontSize: 12, color: '#3f3f46' }}>
-            © {new Date().getFullYear()} JavaDocs. All rights reserved.
+          <p className="tech-label" style={{ fontSize: 9, color: '#333' }}>
+            © {new Date().getFullYear()} JAVADOCS. KERNEL BUILT BY RISHIKESH PAWAR.
           </p>
-          <p style={{ fontSize: 12, color: '#3f3f46' }}>
-            Built with React + Vite + GSAP
-          </p>
+          <div style={{ display: 'flex', gap: 24 }}>
+            <span className="tech-label" style={{ fontSize: 9, color: '#333' }}>SECURED</span>
+            <span className="tech-label" style={{ fontSize: 9, color: '#333' }}>ENCRYPTED</span>
+            <span className="tech-label" style={{ fontSize: 9, color: '#333' }}>OPTIMIZED</span>
+          </div>
         </div>
       </div>
     </footer>

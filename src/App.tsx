@@ -2,7 +2,7 @@ import { Suspense, lazy } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar/Navbar'
 import Footer from './components/Footer/Footer'
-import AnimatedCursor from './components/Cursor/AnimatedCursor'
+import CustomCursor from './components/CustomCursor/CustomCursor'
 
 const Home   = lazy(() => import('./pages/Home'))
 const Docs   = lazy(() => import('./pages/Docs'))
@@ -14,7 +14,7 @@ const Roadmap = lazy(() => import('./pages/Roadmap'))
 function Loader() {
   return (
     <div style={{ minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-      <div style={{ width: 32, height: 32, border: '2px solid #1c1c1f', borderTopColor: '#ffffff', borderRadius: '50%', animation: 'spin 0.7s linear infinite' }} />
+      <div style={{ width: 32, height: 32, border: '1px solid #222', borderTopColor: '#ffffff', borderRadius: '50%', animation: 'spin 0.7s linear infinite' }} />
       <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style>
     </div>
   )
@@ -22,8 +22,8 @@ function Loader() {
 
 export default function App() {
   return (
-    <div style={{ minHeight: '100vh', background: '#111113', display: 'flex', flexDirection: 'column' }}>
-      <AnimatedCursor />
+    <div style={{ minHeight: '100vh', background: '#000', display: 'flex', flexDirection: 'column' }}>
+      <CustomCursor />
       <Navbar />
       <main style={{ flex: 1 }}>
         <Suspense fallback={<Loader />}>

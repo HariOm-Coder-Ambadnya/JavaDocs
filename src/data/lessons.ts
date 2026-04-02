@@ -1290,7 +1290,7 @@ public class ProductController {
       'DispatcherServlet is auto-configured by Spring Boot',
     ],
     prev: 'spring-beans',
-    next: 'sb-setup',
+    next: 'spring-spel',
   },
 
   /* ── SPRING BOOT ─────────────────────────────────── */
@@ -1588,7 +1588,7 @@ public class GlobalExceptionHandler {
       'Log exceptions server-side even when returning clean error responses',
     ],
     prev: 'sb-rest',
-    next: 'jpa-entities',
+    next: 'sb-actuator',
   },
 
   /* ── JPA ─────────────────────────────────────────── */
@@ -1952,6 +1952,391 @@ public class OrderQueryService {
       'Named queries (@NamedQuery) are validated at startup — fail fast on typos',
     ],
     prev: 'jpa-relationships',
+    next: 'jpa-transactions',
+  },
+
+  'sql-basics': {
+    id: 'sql-basics',
+    course: 'jpa',
+    title: 'SQL Basics',
+    videoId: 'HXV3zeQKqGY',
+    content: `## Structured Query Language (SQL)
+SQL is the standard language for interacting with relational databases. For Java developers, understanding SQL is crucial for writing efficient JPQL and native queries.
+
+## Core Commands
+- **SELECT**: Retrieve data from tables
+- **INSERT**: Add new rows
+- **UPDATE**: Modify existing data
+- **DELETE**: Remove rows
+- **JOIN**: Combine data from multiple tables`,
+    code: `-- Basic SQL Operations
+SELECT name, price FROM products WHERE category = 'Electronics';
+
+-- Join examples
+SELECT o.id, c.name, o.order_date
+FROM orders o
+JOIN customers c ON o.customer_id = c.id
+WHERE o.status = 'SHIPPED';`,
+    language: 'sql',
+    notes: [
+      'Use indexes on frequently queried columns',
+      'Always use PreparedStatements to prevent SQL Injection',
+      'Prefer JOINs over multiple nested queries'
+    ],
+    prev: 'sb-exceptions',
+    next: 'jdbc-fundamentals',
+  },
+
+  'jdbc-fundamentals': {
+    id: 'jdbc-fundamentals',
+    course: 'jpa',
+    title: 'JDBC Fundamentals',
+    videoId: 'e8g9e6fG_T4',
+    content: `## Java Database Connectivity (JDBC)
+JDBC is the foundational Java API for database access. While modern apps use JPA, knowing JDBC is essential for understanding how ORMs work under the hood.
+
+## Core Interfaces
+- **DriverManager**: Manages drivers and connections
+- **Connection**: Interface with the database
+- **Statement**: Executes simple SQL
+- **PreparedStatement**: Pre-compiled SQL (Secure)
+- **ResultSet**: Row-by-row data from queries`,
+    code: `// Classic JDBC Pattern
+try (Connection conn = DriverManager.getConnection(url, user, pass)) {
+    String sql = "SELECT * FROM users WHERE id = ?";
+    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        pstmt.setLong(1, 42L);
+        try (ResultSet rs = pstmt.executeQuery()) {
+            if (rs.next()) {
+                System.out.println("User: " + rs.getString("name"));
+            }
+        }
+    }
+} catch (SQLException e) {
+    e.printStackTrace();
+}`,
+    language: 'java',
+    notes: [
+      'Always use try-with-resources to close connections',
+      'PreparedStatement prevents SQL injection',
+      'Use a Connection Pool (like HikariCP) in production'
+    ],
+    prev: 'sql-basics',
+    next: 'jpa-entities',
+  },
+
+  'jpa-transactions': {
+    id: 'jpa-transactions',
+    course: 'jpa',
+    title: 'Transaction Management',
+    videoId: 'p_8_vB5q9_k',
+    content: `## Transactions in Spring
+A transaction is a sequence of operations performed as a single logical unit of work. It must be **ACID**: Atomicity, Consistency, Isolation, and Durability.
+
+## @Transactional
+Spring's primary tool for declarative transaction management.
+- **Rollback**: Automatic rollback on RuntimeExceptions
+- **Propagation**: How transactions behave when called from another transactional method
+- **Isolation**: Level of visibility to other concurrent transactions`,
+    code: `@Service
+public class TradeService {
+    private final AccountRepo repo;
+
+    @Transactional
+    public void transferMoney(Long from, Long to, BigDecimal amount) {
+        repo.deduct(from, amount);
+        // If an exception occurs here, the deduction is rolled back!
+        repo.add(to, amount);
+    }
+}`,
+    language: 'java',
+    notes: [
+      '@Transactional works via AOP (proxies)',
+      'Self-invocation (calling a method from within the same class) bypasses @Transactional',
+      'Only public methods should be @Transactional'
+    ],
+    prev: 'jpa-jpql',
+    next: 'frontend-basics',
+  },
+
+  'spring-spel': {
+    id: 'spring-spel',
+    course: 'spring',
+    title: 'Spring Expression Language',
+    videoId: '7e_Z7q_O9k8',
+    content: `## SpEL (Spring Expression Language)
+SpEL is a powerful expression language that supports querying and manipulating an object graph at runtime. It is widely used in Spring for configuration and security rules.
+
+## Use Cases
+- In \`@Value\` for property injection
+- In Spring Security \`@PreAuthorize\`
+- In Spring Data \`@Query\``,
+    code: `public class SpELDemo {
+    // Inject system property
+    @Value("#{systemProperties['user.home']}")
+    private String userHome;
+
+    // Perform arithmetic
+    @Value("#{2 + 2}")
+    private int four;
+
+    // Security example
+    @PreAuthorize("hasRole('ADMIN') and #user.id == authentication.principal.id")
+    public void deleteUser(User user) { ... }
+}`,
+    language: 'java',
+    notes: [
+      'Use #{...} for expressions and ${...} for properties',
+      'SpEL can access beans directly using @beanName',
+      'Powerful but can be hard to debug if overused'
+    ],
+    prev: 'spring-mvc',
+    next: 'sb-setup',
+  },
+
+  'sb-actuator': {
+    id: 'sb-actuator',
+    course: 'springboot',
+    title: 'Spring Boot Actuator',
+    videoId: '3e_Z7q_O9k8',
+    content: `## Spring Boot Actuator
+Actuator brings production-ready features to your application. It provides endpoints to monitor and manage your application in production.
+
+## Essential Endpoints
+- \`/actuator/health\`: Application status (UP/DOWN)
+- \`/actuator/metrics\`: JVM and application metrics
+- \`/actuator/env\`: Environment properties
+- \`/actuator/loggers\`: Real-time logging level adjustment`,
+    code: `// application.properties
+management.endpoints.web.exposure.include=health,info,metrics,loggers
+management.endpoint.health.show-details=always
+
+// Custom Health Indicator
+@Component
+public class CustomHealthIndicator implements HealthIndicator {
+    @Override
+    public Health health() {
+        return Health.up().withDetail("ExternalAPI", "Available").build();
+    }
+}`,
+    language: 'java',
+    notes: [
+      'Expose only necessary endpoints in production for security',
+      'Integrate with Prometheus/Grafana for long-term monitoring',
+      'Actuator endpoints are secured by Spring Security by default'
+    ],
+    prev: 'sb-exceptions',
+    next: 'sql-basics',
+  },
+
+  /* ── FRONTEND ────────────────────────────────────── */
+  'frontend-basics': {
+    id: 'frontend-basics',
+    course: 'frontend',
+    title: 'HTML/CSS/JS Basics',
+    videoId: 'it8Bv9yveU4',
+    content: `## Modern Frontend Basics
+To build a full-stack application, you need to understand the trio of web technologies: HTML for structure, CSS for styling, and JavaScript for interactivity.
+
+## Key Concepts
+- **Semantic HTML**: Using tags like \`<main>\`, \`<article>\`, \`<header>\` for accessibility and SEO.
+- **CSS Grid & Flexbox**: Modern layout systems.
+- **JavaScript ES6+**: Arrow functions, destructuring, modules, and template literals.`,
+    code: `/* CSS Flexbox Center */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* JS ES6+ */
+const greet = ({ name }) => {
+  console.log(\`Hello, \${name}!\`);
+};`,
+    language: 'javascript',
+    notes: [
+      'Always aim for responsive design (Mobile-first)',
+      'Use modern JS features like async/await for API calls',
+      'Keep your CSS modular and reusable'
+    ],
+    prev: 'sb-actuator',
+    next: 'react-fundamentals',
+  },
+
+  'react-fundamentals': {
+    id: 'react-fundamentals',
+    course: 'frontend',
+    title: 'React.js Fundamentals',
+    videoId: 'RGKi6LSPDLU',
+    content: `## Why React?
+React is a component-based library for building user interfaces. It uses a **Virtual DOM** to optimize rendering and promotes a declarative programming style.
+
+## Core Concepts
+- **Components**: Reusable UI building blocks
+- **Props**: Pass data from parent to child
+- **Hooks**: Use state and lifecycle features in functional components (useState, useEffect)`,
+    code: `import React, { useState, useEffect } from 'react';
+
+function UserProfile({ userId }) {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    fetch(\`/api/users/\${userId}\`)
+      .then(res => res.json())
+      .then(data => setUser(data));
+  }, [userId]);
+
+  if (!user) return <div>Loading...</div>;
+  return <h1>{user.name}</h1>;
+}`,
+    language: 'jsx',
+    notes: [
+      'Components should be small and focused',
+      'Never mutate state directly; use the setter function',
+      'The dependency array in useEffect is crucial to avoid infinite loops'
+    ],
+    prev: 'frontend-basics',
+    next: 'react-state',
+  },
+
+  'react-state': {
+    id: 'react-state',
+    course: 'frontend',
+    title: 'State Management',
+    videoId: '3e_Z7q_O9k8',
+    content: `## State Management
+As applications grow, managing state across many components becomes difficult. This is where state management libraries come in.
+
+## Popular Options
+- **Context API**: Built-in, good for simple global state (themes, user auth)
+- **Zustand**: Minimal, fast, and easy to use (Recommended)
+- **Redux Toolkit**: Standard for complex, large-scale apps`,
+    code: `// Zustand Example
+import { create } from 'zustand';
+
+const useCartStore = create((set) => ({
+  items: [],
+  addItem: (product) => set((state) => ({ 
+    items: [...state.items, product] 
+  })),
+}));
+
+// Components can now access cart state from anywhere!`,
+    language: 'javascript',
+    notes: [
+      'Lift state up only when necessary',
+      'Zustand is often preferred over Redux for its simplicity',
+      'Keep global state minimal; use local state when possible'
+    ],
+    prev: 'react-fundamentals',
+    next: 'spring-security-jwt',
+  },
+
+  /* ── SECURITY & DEPLOYMENT ───────────────────────── */
+  'spring-security-jwt': {
+    id: 'spring-security-jwt',
+    course: 'devops',
+    title: 'Spring Security (JWT)',
+    videoId: 'X80nJ5T7YpE',
+    content: `## Securing APIs with JWT
+JSON Web Tokens (JWT) allow you to secure your REST APIs in a stateless manner. The server doesn't need to store session data.
+
+## JWT Flow
+1. Client sends credentials (POST /login)
+2. Server validates and returns a signed JWT
+3. Client sends JWT in Authorization header for subsequent requests
+4. Server validates signature and grants access`,
+    code: `// SecurityConfig.java
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.csrf().disable()
+            .authorizeHttpRequests()
+            .requestMatchers("/api/auth/**").permitAll()
+            .anyRequest().authenticated()
+            .and()
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        return http.build();
+    }
+}`,
+    language: 'java',
+    notes: [
+      'Stateless auth scale better than session-based auth',
+      'Never store sensitive data in JWT payload (it\'s just Base64)',
+      'Use a strong secret key for signing tokens'
+    ],
+    prev: 'react-state',
+    next: 'docker-basics',
+  },
+
+  'docker-basics': {
+    id: 'docker-basics',
+    course: 'devops',
+    title: 'Dockerizing Applications',
+    videoId: 'gAkwW2tuIqE',
+    content: `## Docker
+Docker allows you to package your application and its dependencies into a single "image" that can run anywhere.
+
+## Key Benefits
+- **Consistency**: "It works on my machine" is no longer an issue
+- **Isolation**: Apps run in isolated containers
+- **Scalability**: Easily spin up multiple instances`,
+    code: `# Dockerfile for Spring Boot
+FROM eclipse-temurin:21-jdk-jammy
+ARG JAR_FILE=target/*.jar
+COPY \${JAR_FILE} app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]
+
+# Build and run
+# docker build -t my-app .
+# docker run -p 8080:8080 my-app`,
+    language: 'dockerfile',
+    notes: [
+      'Use multi-stage builds to keep images small',
+      'Use .dockerignore to exclude node_modules or target folders',
+      'Docker Compose is great for running multiple containers (App + DB) together'
+    ],
+    prev: 'spring-security-jwt',
+    next: 'deployment-cicd',
+  },
+
+  'deployment-cicd': {
+    id: 'deployment-cicd',
+    course: 'devops',
+    title: 'CI/CD & Deployment',
+    videoId: '3e_Z7q_O9k8',
+    content: `## CI/CD and Cloud Deployment
+Continuous Integration and Continuous Deployment (CI/CD) automate the building, testing, and deployment of your code.
+
+## Popular Tools
+- **GitHub Actions**: Integrated directly with GitHub
+- **Jenkins**: Powerful, self-hosted automation server
+- **AWS/Heroku/Vercel**: Cloud platforms for hosting your apps`,
+    code: `# GitHub Actions Workflow Example
+name: Java CI with Maven
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml`,
+    language: 'yaml',
+    notes: [
+      'Automated tests should run on every commit',
+      'Deploy to a staging environment before production',
+      'Use Infrastructure as Code (IaC) tools like Terraform for cloud resources'
+    ],
+    prev: 'docker-basics',
     next: null,
   },
 };
@@ -1961,7 +2346,7 @@ export interface SidebarSection {
   id: string;
   label: string;
   color: string;
-  iconName: 'Coffee' | 'Puzzle' | 'Leaf' | 'Rocket' | 'Database';
+  iconName: 'Coffee' | 'Puzzle' | 'Leaf' | 'Rocket' | 'Database' | 'Layout' | 'ShieldCheck';
   items: { id: string; label: string }[];
 }
 
@@ -2003,6 +2388,7 @@ export const SIDEBAR_SECTIONS: SidebarSection[] = [
       { id: 'spring-di',    label: 'Dependency Injection' },
       { id: 'spring-beans', label: 'Beans' },
       { id: 'spring-mvc',   label: 'Spring MVC' },
+      { id: 'spring-spel',  label: 'SpEL' },
     ],
   },
   {
@@ -2014,18 +2400,44 @@ export const SIDEBAR_SECTIONS: SidebarSection[] = [
       { id: 'sb-setup',      label: 'Project Setup' },
       { id: 'sb-rest',       label: 'REST APIs' },
       { id: 'sb-exceptions', label: 'Exception Handling' },
+      { id: 'sb-actuator',   label: 'Actuator' },
     ],
   },
   {
     id: 'jpa',
-    label: 'JPA / Hibernate',
+    label: 'Database & Persistence',
     color: '#E05FA0',
     iconName: 'Database',
     items: [
-      { id: 'jpa-entities',      label: 'Entities' },
+      { id: 'sql-basics',        label: 'SQL Basics' },
+      { id: 'jdbc-fundamentals', label: 'JDBC Fundamentals' },
+      { id: 'jpa-entities',      label: 'JPA Entities' },
       { id: 'jpa-repositories',  label: 'Repositories' },
       { id: 'jpa-relationships', label: 'Relationships' },
       { id: 'jpa-jpql',          label: 'JPQL' },
+      { id: 'jpa-transactions',  label: 'Transactions' },
+    ],
+  },
+  {
+    id: 'frontend',
+    label: 'Frontend Integration',
+    color: '#06b6d4',
+    iconName: 'Layout',
+    items: [
+      { id: 'frontend-basics',   label: 'HTML/CSS/JS' },
+      { id: 'react-fundamentals', label: 'React.js' },
+      { id: 'react-state',       label: 'State Management' },
+    ],
+  },
+  {
+    id: 'devops',
+    label: 'Security & Deployment',
+    color: '#ef4444',
+    iconName: 'ShieldCheck',
+    items: [
+      { id: 'spring-security-jwt', label: 'Spring Security (JWT)' },
+      { id: 'docker-basics',       label: 'Dockerizing Apps' },
+      { id: 'deployment-cicd',     label: 'CI/CD & Deployment' },
     ],
   },
 ];

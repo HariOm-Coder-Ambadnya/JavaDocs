@@ -13,25 +13,25 @@ export default function Home() {
   useScrollAnimations()
 
   return (
-    <div style={{ background: '#111113' }}>
+    <div style={{ background: '#000' }}>
       <Hero />
 
       {/* Courses */}
-      <section style={{ padding: '100px 24px', background: '#0d0d0f' }}>
+      <section style={{ padding: '120px 24px', background: '#000', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
-          <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 48, flexWrap: 'wrap', gap: 16 }} className="gsap-slide-up">
+          <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 60, flexWrap: 'wrap', gap: 16 }} className="gsap-slide-up">
             <div>
-              <p className="section-label" style={{ marginBottom: 12 }}>Courses</p>
-              <h2 className="display" style={{ fontSize: 'clamp(26px,4vw,44px)', color: '#f4f4f5', maxWidth: 420 }}>
-                Choose your learning path
+              <p className="tech-label" style={{ marginBottom: 16 }}>Documentation</p>
+              <h2 className="modern-display" style={{ fontSize: 'clamp(32px,5vw,56px)', color: '#fff', maxWidth: 600 }}>
+                Structured paths for <br /> every level.
               </h2>
             </div>
-            <Link to="/docs" className="btn-ghost" style={{ fontSize: 13 }}>
-              View all courses <ArrowRight size={14} />
+            <Link to="/docs" className="tech-label" style={{ color: '#fff', textDecoration: 'none', borderBottom: '1px solid #fff', paddingBottom: 4 }}>
+              View all modules
             </Link>
           </div>
 
-          <div className="gsap-stagger" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(230px,1fr))', gap: 12 }}>
+          <div className="gsap-stagger" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px,1fr))', gap: 1 }}>
             {COURSES.map((course, i) => (
               <CourseCard key={course.id} course={course} idx={i} />
             ))}
@@ -44,29 +44,34 @@ export default function Home() {
       <Integrations />
 
       {/* Community Section */}
-      <section style={{ padding: '100px 24px', background: '#111113', position: 'relative', overflow: 'hidden' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto', position: 'relative' }}>
-          <div className="card gsap-slide-up" style={{
-            background: 'linear-gradient(145deg, #1c1c1f 0%, #111113 100%)',
-            border: '1px solid rgba(255,255,255,0.06)',
-            padding: '60px 40px',
-            borderRadius: 24,
+      <section style={{ padding: '120px 24px', background: '#000', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+          <div className="gsap-slide-up" style={{
+            background: '#080808',
+            border: '1px solid rgba(255,255,255,0.05)',
+            padding: '80px 60px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
             flexWrap: 'wrap',
-            gap: 40
+            gap: 60
           }}>
             <div style={{ flex: '1 1 500px' }}>
-              <p className="section-label" style={{ marginBottom: 14 }}>Join the Community</p>
-              <h2 className="display" style={{ fontSize: 'clamp(28px,4vw,44px)', color: '#f4f4f5', marginBottom: 18 }}>
-                Connect with Fellow <br />Developers
+              <p className="tech-label" style={{ marginBottom: 20 }}>Network</p>
+              <h2 className="modern-display" style={{ fontSize: 'clamp(32px,5vw,56px)', color: '#fff', marginBottom: 24 }}>
+                Join the <br />Core Community
               </h2>
-              <p style={{ fontSize: 16, color: '#71717a', lineHeight: 1.7, marginBottom: 32, maxWidth: 480 }}>
-                Join our private WhatsApp group to discuss Java patterns, get help with Spring Boot errors, and network with other learners building real-world applications.
+              <p style={{ fontSize: 13, color: '#71717a', lineHeight: 1.8, marginBottom: 40, maxWidth: 480, letterSpacing: '0.05em', textTransform: 'uppercase' }}>
+                Join our private network to discuss patterns, troubleshoot architecture, and build the future of Java.
               </p>
-              <a href="https://chat.whatsapp.com/BpNJmQCNXb3DXRNDUfBCxV" target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ padding: '14px 28px', fontSize: 15 }}>
-                Join WhatsApp Group
+              <a href="https://chat.whatsapp.com/BpNJmQCNXb3DXRNDUfBCxV" target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ 
+                padding: '16px 40px', 
+                borderRadius: 0,
+                fontSize: 12,
+                textTransform: 'uppercase',
+                letterSpacing: '0.1em'
+              }}>
+                Request Access
               </a>
             </div>
 
@@ -76,42 +81,26 @@ export default function Home() {
               justifyContent: 'center',
               position: 'relative'
             }}>
-              {/* Decorative Circle */}
-              <div style={{
-                width: 200,
-                height: 200,
-                borderRadius: '50%',
-                background: 'radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%)',
-                position: 'absolute',
-                top: '50%',
-                left: '50%',
-                transform: 'translate(-50%, -50%)',
-                zIndex: 0
-              }} />
-
               <div style={{
                 position: 'relative',
                 zIndex: 1,
-                padding: 16,
-                background: 'rgba(255,255,255,0.03)',
-                borderRadius: 24,
-                border: '1px solid rgba(255,255,255,0.08)',
-                boxShadow: '0 20px 40px rgba(0,0,0,0.4)'
+                padding: 24,
+                background: '#000',
+                border: '1px solid rgba(255,255,255,0.05)',
               }}>
-                <img src="/logo.png" alt="Community" style={{ width: 140, height: 140, borderRadius: 16, filter: 'grayscale(0.2)' }} />
+                <img src="/logo.png" alt="Community" style={{ width: 160, height: 160, filter: 'grayscale(1) contrast(1.2)' }} />
                 <div style={{
                   position: 'absolute',
-                  bottom: -15,
-                  right: -15,
-                  background: '#22c55e',
-                  padding: '8px 12px',
-                  borderRadius: 12,
-                  color: '#fff',
-                  fontSize: 12,
-                  fontWeight: 700,
-                  boxShadow: '0 8px 20px rgba(34,197,94,0.3)'
+                  bottom: -10,
+                  right: -10,
+                  background: '#fff',
+                  padding: '6px 12px',
+                  color: '#000',
+                  fontSize: 10,
+                  fontWeight: 800,
+                  letterSpacing: '0.1em'
                 }}>
-                  ONLINE NOW
+                  ACTIVE
                 </div>
               </div>
             </div>
@@ -120,35 +109,45 @@ export default function Home() {
       </section>
 
       {/* CTA Banner */}
-      <section style={{ padding: '80px 24px 100px' }}>
+      <section style={{ padding: '0 24px 120px' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
-          <div className="card gsap-scale" style={{
-            padding: '64px 48px', textAlign: 'center',
+          <div className="gsap-scale" style={{
+            padding: '100px 48px', textAlign: 'center',
             position: 'relative', overflow: 'hidden',
-            background: '#1c1c1f',
+            background: '#fff',
+            color: '#000'
           }}>
-            {/* Glow */}
-            <div style={{
-              position: 'absolute', top: '50%', left: '50%',
-              transform: 'translate(-50%,-50%)',
-              width: 500, height: 200,
-              background: 'radial-gradient(ellipse, rgba(255,255,255,0.04) 0%, transparent 70%)',
-              pointerEvents: 'none',
-            }} />
             <div style={{ position: 'relative' }}>
-              <p className="section-label" style={{ marginBottom: 14 }}>Get started today</p>
-              <h2 className="display" style={{ fontSize: 'clamp(28px,4vw,46px)', color: '#f4f4f5', marginBottom: 14 }}>
-                Start learning Java for free
+              <p className="tech-label" style={{ marginBottom: 20, color: '#000', opacity: 0.6 }}>Deployment</p>
+              <h2 className="modern-display" style={{ fontSize: 'clamp(32px,5vw,64px)', color: '#000', marginBottom: 20 }}>
+                Ready to Initialize?
               </h2>
-              <p style={{ fontSize: 16, color: '#71717a', maxWidth: 420, margin: '0 auto 32px', lineHeight: 1.7 }}>
-                No sign-up required. Jump straight into the first lesson and start building your Java skills today.
+              <p style={{ fontSize: 14, color: '#000', opacity: 0.7, maxWidth: 460, margin: '0 auto 40px', lineHeight: 1.8, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                Access the full suite of documentation and start your journey towards mastery.
               </p>
-              <div style={{ display: 'flex', justifyContent: 'center', gap: 12, flexWrap: 'wrap' }}>
-                <Link to="/docs/java-intro" className="btn-primary">
-                  Get started for free <ArrowRight size={15} />
+              <div style={{ display: 'flex', justifyContent: 'center', gap: 24, flexWrap: 'wrap' }}>
+                <Link to="/docs" className="btn-primary" style={{ 
+                  background: '#000', 
+                  color: '#fff',
+                  borderRadius: 0,
+                  padding: '16px 40px',
+                  fontSize: 12,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.1em'
+                }}>
+                  Start Learning
                 </Link>
-                <Link to="/docs" className="btn-ghost">
-                  Browse docs
+                <Link to="/docs" style={{ 
+                  color: '#000', 
+                  fontSize: 12,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.1em',
+                  fontWeight: 700,
+                  textDecoration: 'none',
+                  borderBottom: '1.5px solid #000',
+                  paddingBottom: 2
+                }}>
+                  View Curriculum
                 </Link>
               </div>
             </div>

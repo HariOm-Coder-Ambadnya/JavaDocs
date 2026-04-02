@@ -33,50 +33,46 @@ export default function Docs() {
               <div key={section.id} className="gsap-slide-up">
                 <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 16 }}>
                   <div style={{
-                    width: 38, height: 38, borderRadius: 10,
+                    width: 38, height: 38, borderRadius: 0,
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    background: `${section.color}12`, border: `1px solid ${section.color}25`,
+                    background: '#0a0a0a', border: '1px solid rgba(255,255,255,0.05)',
                   }}>
-                    {Icon && <Icon size={18} color={section.color} />}
+                    {Icon && <Icon size={18} color="#fff" />}
                   </div>
                   <div style={{ flex: 1 }}>
-                    <h2 style={{ fontSize: 17, fontWeight: 700, color: '#f4f4f5', letterSpacing: '-0.01em' }}>{section.label}</h2>
-                    {course && <p style={{ fontSize: 12, color: '#52525b', marginTop: 2 }}>{course.lessons} lessons · {course.duration}</p>}
+                    <h2 className="modern-display" style={{ fontSize: 16, color: '#fff' }}>{section.label}</h2>
+                    {course && <p style={{ fontSize: 10, color: '#525252', marginTop: 2, textTransform: 'uppercase', letterSpacing: '0.1em' }}>{course.lessons} lessons · {course.duration}</p>}
                   </div>
-                  <Link to={`/course/${section.id}`} style={{
-                    display: 'flex', alignItems: 'center', gap: 5,
-                    fontSize: 12, fontWeight: 600, color: section.color, textDecoration: 'none',
-                    transition: 'gap 0.2s',
-                  }}
-                  onMouseEnter={e => (e.currentTarget as HTMLElement).style.gap = '8px'}
-                  onMouseLeave={e => (e.currentTarget as HTMLElement).style.gap = '5px'}
-                  >
-                    View Course <ArrowRight size={12} />
+                  <Link to={`/course/${section.id}`} className="tech-label" style={{
+                    fontSize: 10, color: '#fff', textDecoration: 'none',
+                    borderBottom: '1px solid rgba(255,255,255,0.2)', paddingBottom: 2
+                  }}>
+                    View Module
                   </Link>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px,1fr))', gap: 8 }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px,1fr))', gap: 1 }}>
                   {section.items.map((item, i) => (
                     <Link key={item.id} to={`/docs/${item.id}`} style={{
                       display: 'flex', alignItems: 'center', gap: 12,
-                      padding: '12px 16px',
-                      background: '#1c1c1f', border: '1px solid rgba(255,255,255,0.07)',
-                      borderRadius: 10, textDecoration: 'none',
-                      transition: 'border-color 0.15s, background 0.15s',
+                      padding: '16px 20px',
+                      background: '#080808', border: '1px solid rgba(255,255,255,0.03)',
+                      textDecoration: 'none',
+                      transition: 'all 0.2s',
                     }}
-                    onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = `${section.color}30`; el.style.background = '#242428' }}
-                    onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = 'rgba(255,255,255,0.07)'; el.style.background = '#1c1c1f' }}
+                    onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = 'rgba(255,255,255,0.1)'; el.style.background = '#0d0d0d' }}
+                    onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = 'rgba(255,255,255,0.03)'; el.style.background = '#080808' }}
                     >
-                      <div style={{
-                        width: 28, height: 28, borderRadius: 7, flexShrink: 0,
+                      <div className="tech-label" style={{
+                        width: 24, height: 24, flexShrink: 0,
                         display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        fontSize: 11, fontWeight: 700, color: '#fff',
-                        background: section.color, fontFamily: 'monospace',
+                        fontSize: 9, color: '#444',
+                        border: '1px solid rgba(255,255,255,0.05)',
                       }}>
                         {String(i + 1).padStart(2, '0')}
                       </div>
-                      <span style={{ fontSize: 13, fontWeight: 500, color: '#a1a1aa', flex: 1 }}>{item.label}</span>
-                      <ArrowRight size={12} color="#3f3f46" />
+                      <span style={{ fontSize: 12, fontWeight: 500, color: '#a1a1aa', flex: 1, letterSpacing: '0.02em' }}>{item.label}</span>
+                      <ArrowRight size={12} color="#222" />
                     </Link>
                   ))}
                 </div>

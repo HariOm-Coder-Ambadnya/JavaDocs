@@ -19,31 +19,31 @@ const FULL_STACK_ROADMAP = [
     stage: 'Phase 3: Database & Persistence',
     icon: <Database size={20} />,
     items: ['SQL Basics (MySQL/PostgreSQL)', 'JDBC Fundamentals', 'Hibernate ORM', 'Spring Data JPA', 'Transaction Management'],
-    status: 'in-progress',
+    status: 'completed',
   },
   {
     stage: 'Phase 4: Spring Framework Core',
     icon: <Server size={20} />,
     items: ['Dependency Injection (DI)', 'Inversion of Control (IoC)', 'Spring Beans Lifecycle', 'Application Context', 'Spring Expressions (SpEL)'],
-    status: 'pending',
+    status: 'completed',
   },
   {
     stage: 'Phase 5: Building APIs with Spring Boot',
     icon: <Zap size={20} />,
     items: ['Spring Boot Starters', 'REST Controllers', 'Request/Response Mapping', 'Validation & Error Handling', 'Spring Boot Actuator'],
-    status: 'pending',
+    status: 'completed',
   },
   {
     stage: 'Phase 6: Frontend Integration (Full Stack)',
     icon: <Layout size={20} />,
     items: ['HTML/CSS Basics', 'JavaScript ES6+', 'React.js Fundamentals', 'Fetching APIs (Axios/Fetch)', 'State Management'],
-    status: 'pending',
+    status: 'completed',
   },
   {
     stage: 'Phase 7: Security & Deployment',
     icon: <ShieldCheck size={20} />,
     items: ['Spring Security (JWT/OAuth2)', 'Dockerizing Backend & Frontend', 'AWS/Heroku Deployment', 'CI/CD Pipelines (GitHub Actions)', 'Unit Testing (JUnit/Mockito)'],
-    status: 'pending',
+    status: 'completed',
   },
 ]
 

@@ -32,75 +32,74 @@ export default function Sidebar({ isOpen, onClose }: Props) {
       <aside
         className={`${isOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}
         style={{
-          position: 'sticky', top: 62,
-          height: 'calc(100vh - 62px)',
-          width: 252, minWidth: 252, flexShrink: 0,
-          background: '#111113',
+          position: 'fixed', top: 0, left: 0,
+          height: '100vh',
+          width: 280, flexShrink: 0,
+          background: '#000',
           borderRight: '1px solid rgba(255,255,255,0.06)',
           overflowY: 'auto',
-          transition: 'transform 0.3s',
+          transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+          zIndex: 500,
         }}
       >
         {/* Header */}
         <div style={{
-          padding: '16px 16px 12px',
+          padding: '32px 24px',
           borderBottom: '1px solid rgba(255,255,255,0.05)',
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         }}>
-          <span style={{ fontSize: 11, fontWeight: 600, color: '#52525b', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-            Documentation
-          </span>
-          <button onClick={onClose} className="lg:hidden" style={{ background: 'none', border: 'none', color: '#52525b', cursor: 'pointer', padding: 2 }}>
-            <X size={15} />
+          <div>
+            <span className="tech-label" style={{ fontSize: 9, color: '#fff', opacity: 0.2, display: 'block' }}>SYSTEM // VERSION</span>
+            <span className="modern-display" style={{ fontSize: 13, color: '#fff' }}>Kernel.base</span>
+          </div>
+          <button onClick={onClose} className="lg:hidden" style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer', opacity: 0.5 }}>
+            <X size={18} />
           </button>
         </div>
 
-        <nav style={{ padding: '8px 8px 64px' }}>
+        <nav style={{ padding: '20px 12px' }}>
           {SIDEBAR_SECTIONS.map(section => {
             const isExp = expanded[section.id]
             const hasActive = section.items.some(i => i.id === lessonId)
-            const Icon = ICON_MAP[section.iconName]
 
             return (
-              <div key={section.id} style={{ marginBottom: 2 }}>
+              <div key={section.id} style={{ marginBottom: 8 }}>
                 <button onClick={() => toggle(section.id)} style={{
-                  width: '100%', display: 'flex', alignItems: 'center', gap: 8,
-                  padding: '8px 10px', borderRadius: 7, textAlign: 'left',
-                  background: hasActive ? 'rgba(255,255,255,0.05)' : 'transparent',
-                  border: 'none', cursor: 'pointer', transition: 'background 0.15s',
+                  width: '100%', display: 'flex', alignItems: 'center', gap: 12,
+                  padding: '12px 16px', textAlign: 'left',
+                  background: hasActive ? 'rgba(255,255,255,0.03)' : 'transparent',
+                  border: 'none', cursor: 'pointer', transition: 'all 0.2s',
                 }}
-                onMouseEnter={e => { if (!hasActive) (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.03)' }}
-                onMouseLeave={e => { if (!hasActive) (e.currentTarget as HTMLElement).style.background = 'transparent' }}
                 >
-                  {Icon && <Icon size={14} color={section.color} />}
-                  <span style={{ flex: 1, fontSize: 13, fontWeight: 600, color: hasActive ? '#f4f4f5' : '#71717a', textAlign: 'left' }}>
+                  <span className="modern-display" style={{ flex: 1, fontSize: 12, color: hasActive ? '#fff' : '#444', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                     {section.label}
                   </span>
                   {isExp
-                    ? <ChevronDown size={12} color="#52525b" />
-                    : <ChevronRight size={12} color="#52525b" />}
+                    ? <ChevronDown size={14} color="#222" />
+                    : <ChevronRight size={14} color="#222" />}
                 </button>
 
                 {isExp && (
                   <div style={{
-                    marginLeft: 10, marginTop: 2, paddingLeft: 14,
-                    borderLeft: `1px solid ${section.color}30`,
+                    marginLeft: 16, marginTop: 4, paddingLeft: 16,
+                    borderLeft: '1px solid rgba(255,255,255,0.05)',
                   }}>
                     {section.items.map(item => {
                       const active = item.id === lessonId
                       return (
-                        <Link key={item.id} to={`/docs/${item.id}`} onClick={onClose} style={{
-                          display: 'block', padding: '6px 10px', borderRadius: 6,
-                          fontSize: 13, textDecoration: 'none', marginBottom: 1,
-                          fontWeight: active ? 600 : 400,
-                          color: active ? '#f4f4f5' : '#71717a',
-                          background: active ? `${section.color}15` : 'transparent',
-                          transition: 'all 0.15s',
+                        <Link key={item.id} to={`/docs/${item.id}`} onClick={() => { if (window.innerWidth < 1024) onClose() }} style={{
+                          display: 'block', padding: '8px 16px',
+                          textDecoration: 'none', marginBottom: 4,
+                          transition: 'all 0.2s',
                         }}
-                        onMouseEnter={e => { if (!active) { const el = e.currentTarget as HTMLElement; el.style.color = '#a1a1aa'; el.style.background = 'rgba(255,255,255,0.04)' }}}
-                        onMouseLeave={e => { if (!active) { const el = e.currentTarget as HTMLElement; el.style.color = '#71717a'; el.style.background = 'transparent' }}}
                         >
-                          {item.label}
+                          <span className="tech-label" style={{ 
+                            fontSize: 9, 
+                            color: active ? '#fff' : '#333',
+                            fontWeight: active ? 800 : 700 
+                          }}>
+                            {item.label}
+                          </span>
                         </Link>
                       )
                     })}

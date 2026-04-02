@@ -21,7 +21,10 @@
   --radius-sm:0px;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; cursor: none !important; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+@media (hover: hover) and (pointer: fine) {
+  * { cursor: none !important; }
+}
 html { scroll-behavior: smooth; font-size: 14px; background: #000; }
 
 body {
@@ -193,6 +196,12 @@ body {
   .p-mobile-0 { padding: 0 !important; }
   .m-mobile-0 { margin: 0 !important; }
   .gap-mobile-4 { gap: 16px !important; }
+}
+
+/* Cursor Animation */
+.custom-cursor { display: flex !important; }
+@media (max-width: 768px) {
+  .custom-cursor { display: none !important; }
 }
 
 /* Tailwind-ish Shorthands (for compatibility) */

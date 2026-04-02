@@ -24,6 +24,7 @@ export default function CustomCursor() {
   return (
     <div
       ref={cursorRef}
+      className="custom-cursor"
       style={{
         position: 'fixed',
         top: 0,
@@ -33,7 +34,6 @@ export default function CustomCursor() {
         pointerEvents: 'none',
         zIndex: 9999,
         mixBlendMode: 'difference',
-        display: 'flex',
         alignItems: 'center',
         justifyContent: 'center'
       }}
